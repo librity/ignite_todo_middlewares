@@ -49,7 +49,9 @@ $ yarn test
 
 `Users`
 
+- `GET` http://localhost:3333/users/:id
 - `POST` http://localhost:3333/users
+- `PATCH` http://localhost:3333/users/:id/pro
 
 `Todos`
 
@@ -61,4 +63,9 @@ $ yarn test
 
 ## Resources <a name = "resources"></a>
 
+- https://rapidapi.com/blog/put-vs-patch/
+- https://github.com/uuidjs/uuid#quickstart
+- https://stackoverflow.com/questions/18875292/passing-variables-to-the-next-middleware-using-next-in-express-js
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
+- https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#2xx_success
 - https://stackoverflow.com/questions/10865025/merge-flatten-an-array-of-arrays

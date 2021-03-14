@@ -21,20 +21,34 @@ function checksExistsUserAccount(request, response, next) {
 }
 
 function checksCreateTodosUserAvailability(request, response, next) {
-  // Complete aqui
+  const { user } = request;
+
+  if (user.pro) return next();
+
+  if (user.todos.length >= 10)
+    return response.status(403).json({ error: "Todo limit exceeded." });
+
+  next();
 }
 
 function checksTodoExists(request, response, next) {
   const { id } = request.params;
+  const { username } = request.headers;
 
-  const bumpyTodos = users.map((user) => user.todos);
-  const flatTodos = bumpyTodos.flat(1);
+  if (!validate(id))
+    return response.status(400).json({ error: "Bad todo id." });
 
-  const targetTodo = flatTodos.find((todo) => todo.id === id);
+  const userExists = users.find((user) => user.username === username);
+  if (!userExists)
+    return response.status(404).json({ error: "User not found." });
 
+  const todos = userExists.todos;
+
+  const targetTodo = todos.find((todo) => todo.id === id);
   if (!targetTodo)
     return response.status(404).json({ error: "To do not found." });
 
+  request.user = userExists;
   request.todo = targetTodo;
   next();
 }
